@@ -46,7 +46,7 @@ public class LSHMinHash extends LSH {
      */
     public LSHMinHash(final int s, final int b, final int n) {
         super(s, b);
-        int signature_size = computeSignatureSize(s, n);
+        int signature_size = computeSignatureSize(s, b);
         this.mh = new MinHash(signature_size, n);
     }
 
@@ -66,7 +66,7 @@ public class LSHMinHash extends LSH {
      */
     public LSHMinHash(final int s, final int b, final int n, final long seed) {
         super(s, b);
-        int signature_size = computeSignatureSize(s, n);
+        int signature_size = computeSignatureSize(s, b);
         this.mh = new MinHash(signature_size, n, seed);
     }
 
@@ -89,10 +89,10 @@ public class LSHMinHash extends LSH {
      * R = ln(1/s) / ln(threshold)
      * signature_size = R * b
      */
-    private int computeSignatureSize(final int s, final int n) {
+    private int computeSignatureSize(final int s, final int b) {
 
         int r = (int) Math.ceil(Math.log(1.0 / s) / Math.log(THRESHOLD)) + 1;
-        return r * s;
+        return r * b;
     }
 
     /**
